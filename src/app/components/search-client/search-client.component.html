@@ -1,0 +1,210 @@
+<div class="uk-container uk-margin min-height-50">
+  <ul uk-accordion="collapsible: true; multiple:true">
+    <li class="uk-open">
+      <a class="uk-accordion-title" href="#">Filtro de Búsqueda</a>
+      <div class="uk-accordion-content">
+        <form class="uk-grid-small" uk-grid [formGroup]="_searchForm" (ngShow)="_searchForm" (onsubmit)="search()">
+          <div class="uk-width-1-2@s">
+            <legend>Cédula</legend>
+            <input class="uk-input document_content_input" type="text"  [ngClass]="
+                {'uk-form-danger':(
+                  !_searchForm.controls.document_content.pristine &&
+                  !_searchForm.controls.document_content.valid
+                  )
+                }
+                "
+              [value]="_searchForm.controls.document_content.value | documentFormatPipe:'CI':_searchForm.controls.document_content"
+              formControlName="document_content">
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Nombre</legend>
+            <input class="uk-input" type="text"  [ngClass]="
+                {'uk-form-danger':(
+                  !_searchForm.controls.firstname.pristine &&
+                  !_searchForm.controls.firstname.valid
+                  )
+                }
+                "
+              formControlName="firstname">
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Apellido</legend>
+            <input class="uk-input" type="text"  [ngClass]="
+                {'uk-form-danger':(
+                  !_searchForm.controls.surname.pristine &&
+                  !_searchForm.controls.surname.valid
+                  )
+                }
+                "
+              formControlName="surname">
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Status</legend>
+            <select class="uk-select" formControlName="status">
+              <option *ngFor="let option of SEARCH_OPTIONS_STATUS" [value]="option.value">
+                {{option.title}}
+              </option>
+            </select>
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Teléfono</legend>
+            <input class="uk-input" type="phone"  [ngClass]="
+                {'uk-form-danger':(
+                  !_searchForm.controls.phone.pristine &&
+                  !_searchForm.controls.phone.valid
+                  )
+                }
+                "
+              formControlName="phone">
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Dirección</legend>
+            <textarea rows='4' class="uk-textarea" type="text"  [ngClass]="
+                {'uk-form-danger':(
+                  !_searchForm.controls.address.pristine &&
+                  !_searchForm.controls.address.valid
+                  )
+                }
+                "
+              formControlName="address"></textarea>
+          </div>
+          <div class="uk-width-1-2@s uk-grid-small" uk-grid>
+            <div class="uk-width-1-1@s">
+              <legend>Fecha de Inscripción</legend>
+            </div>
+            <div class="uk-width-1-2@s">
+              <select class="uk-select" formControlName="inscription_date_search_option">
+                <option *ngFor="let option of SEARCH_OPTIONS_DATE" [value]="option.value">{{option.title}}</option>
+              </select>
+            </div>
+            <div class="uk-width-1-2@s">
+              <input class="uk-input" type="string"  
+              id = "searchClientInscriptionDateInput"
+              [ngClass]="
+                {'uk-form-danger':(
+                  !_searchForm.controls.inscription_date.pristine &&
+                  !_searchForm.controls.inscription_date.valid
+                  )
+                }
+                "
+                [value]="_searchForm.controls.inscription_date.value | jqueryDatePickerPipe:'searchClientInscriptionDateInput':_searchForm.controls.inscription_date"
+                formControlName="inscription_date">
+            </div>
+          </div>
+          <div class="uk-width-1-2@s uk-grid-small" uk-grid>
+            <div class="uk-width-1-1@s">
+              <legend>Fecha de Corte</legend>
+            </div>
+            <div class="uk-width-1-2@s">
+              <select class="uk-select" formControlName="cut_date_search_option">
+                <option *ngFor="let option of SEARCH_OPTIONS_DATE" [value]="option.value">{{option.title}}</option>
+              </select>
+            </div>
+            <div class="uk-width-1-2@s">
+
+              <input class="uk-input" type="string"  
+              id = "searchClientCutDateInput"
+              [ngClass]="
+                {'uk-form-danger':(
+                  !_searchForm.controls.cut_date.pristine &&
+                  !_searchForm.controls.cut_date.valid
+                  )
+                }
+                "
+              [value]="_searchForm.controls.cut_date.value | jqueryDatePickerPipe:'searchClientCutDateInput':_searchForm.controls.cut_date"
+              formControlName="cut_date">
+            </div>
+          </div>
+          <div class="uk-width-1-1 uk-margin">
+            <button class="uk-button uk-button-primary"  type="button" (click)="search()">Buscar Cliente</button>
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="uk-open">
+      <a class="uk-accordion-title" href="#">Resultados</a>
+      <div class="uk-accordion-content">
+        <table class="uk-table">
+          <caption>
+            <h3>Usuarios</h3>
+          </caption>
+          <thead>
+            <tr>
+              <th (click)="sortSearch('user','name')">
+                Nombre
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('user','name')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('user','name')"></span>
+              </th>
+              <th (click)="sortSearch('document','content')">
+                CI
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('document','content')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('document','content')"></span>
+              </th>
+              <th (click)="sortSearch('membership','inscription_date')">
+                Inscripción
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('membership','inscription_date')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('membership','inscription_date')"></span>
+              </th>
+              <th (click)="sortSearch('membership','cut_date')">
+                Corte
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('membership','cut_date')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('membership','cut_date')"></span>
+              </th>
+              <th class='uk-table-expand'>
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let jUser of _userResults">
+              <td>
+                <span>{{jUser.firstName}}</span>
+              </td>
+              <td>
+                <span>{{jUser.document.content}}</span>
+              </td>
+              <td>
+                <span>{{jUser.membership.inscriptionDate | date:'dd/MM/yyyy'}}</span>
+              </td>
+              <td>
+                <span [ngClass]="
+                {'past_due_date':(
+                    cutDatePassed(jUser.membership.cutDate)
+                  ),
+                  'good_due_date':(
+                    !cutDatePassed(jUser.membership.cutDate)
+                  )
+                }
+                ">{{jUser.membership.cutDate
+                  | date:'dd/MM/yyyy'}}</span>
+              </td>
+              <td>
+                <div class="uk-button-group user-actions">
+                  <a *ngIf="userService.canUpdateClient"
+                  class="uk-icon-button" uk-tooltip="title:Actualizar Cliente" uk-icon="pencil" (click)="updateClient(jUser)" ></a>
+                  <a *ngIf="(jUser.status === CLIENT_STATUS.ACTIVE) && (userService.canUpdateClient)"
+                  class='uk-icon-button' uk-tooltip="title:Desincorporar Cliente" uk-icon="trash" (click)="desincorporateClient(jUser)"></a>
+                  <a *ngIf="(jUser.status === CLIENT_STATUS.DELETED) && (userService.canIncorporate)" 
+                  class='uk-icon-button' uk-tooltip="title:Reincorporar Cliente" uk-icon="refresh" (click)="reincorporateClient(jUser)"></a>
+                  <a *ngIf="(userService.canSearchClients)"
+                  class='uk-icon-button' uk-tooltip="title:Detalles" uk-icon="user" (click)="viewClientDetails(jUser)"></a>
+                  <a *ngIf="(userService.canSearchPayments)"
+                  class='uk-icon-button' uk-tooltip="title:Pagos del Cliente" uk-icon="credit-card" (click)="viewClientPayments(jUser)"></a>
+                  <a *ngIf="(userService.canAddPayments)"
+                  class='uk-icon-button' uk-tooltip="title:Agregar Pago" uk-icon="cart" (click)="addPayment(jUser)"></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5">
+                  <app-search-paging #searchPagingComponent></app-search-paging>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </li>
+  </ul>
+</div>

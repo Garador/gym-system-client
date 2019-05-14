@@ -1,0 +1,107 @@
+<button class="uk-modal-close-default" type="button" uk-close></button>
+<ul uk-accordion="collapsible: true; multiple:true">
+  <li class="uk-open">
+    <a class="uk-accordion-title" href="#">Datos Principales</a>
+    <div class="uk-accordion-content">
+      <form [formGroup]="_adminDetailsFormControl" (ngShow)="_adminDetailsFormControl" class='uk-grid-small' uk-grid>
+        <div class="uk-width-1-2@s">
+          <legend>Cédula</legend>
+          <input class="uk-input document_content_input" type="text" [ngClass]="
+              {'uk-form-danger':(
+                !_adminDetailsFormControl.controls.document_content.pristine
+                && !_adminDetailsFormControl.controls.document_content.valid
+                )
+              }
+              "
+            [value]="_adminDetailsFormControl.controls.document_content.value" formControlName="document_content">
+        </div>
+        <div class="uk-width-1-2@s">
+          <legend>Nombre</legend>
+          <input class="uk-input" type="text" [ngClass]="
+              {'uk-form-danger':(
+                !_adminDetailsFormControl.controls.firstname.pristine
+                && !_adminDetailsFormControl.controls.firstname.valid
+                )
+              }
+              "
+            formControlName="firstname">
+        </div>
+
+        <div class="uk-width-1-2@s">
+          <legend>Apellido</legend>
+          <input class="uk-input" type="text" [ngClass]="
+              {'uk-form-danger':(
+                !_adminDetailsFormControl.controls.surname.pristine
+                && !_adminDetailsFormControl.controls.surname.valid
+                )
+              }
+              "
+            formControlName="surname">
+        </div>
+
+        <div class="uk-width-1-2@s">
+          <legend>Dirección</legend>
+          <textarea rows='4' class='uk-textarea' [ngClass]="
+                {'uk-form-danger':(
+                  !_adminDetailsFormControl.controls.address.pristine
+                  && !_adminDetailsFormControl.controls.address.valid
+                  ),
+                  'uk-textarea':1
+                }
+                "
+            formControlName="address"></textarea>
+        </div>
+
+        <div class="uk-width-1-2">
+          <legend>Telefono</legend>
+          <input type="text" class="uk-input" [ngClass]="
+                {'uk-form-danger':(
+                  !_adminDetailsFormControl.controls.phone.pristine
+                  && !_adminDetailsFormControl.controls.phone.valid
+                  )
+                }
+                "
+            formControlName="phone">
+        </div>
+
+        <div class="uk-width-1-2">
+          <legend>Nombre de Usuario</legend>
+          <input class="uk-input" type="text" [ngClass]="
+              {'uk-form-danger':(
+                !_adminDetailsFormControl.controls.username.pristine
+                && !_adminDetailsFormControl.controls.username.valid
+                )
+              }
+              "
+            formControlName="username">
+        </div>
+      </form>
+    </div>
+  </li>
+  <li>
+    <a class="uk-accordion-title" href="#">Roles</a>
+    <div class="uk-accordion-content">
+      <form [formGroup]="_roleForm">
+        <fieldset class="uk-fieldset">
+          <div class="uk-grid uk-margin" uk-grid>
+            <div class="uk-width-1-2" *ngFor="let role of _roleChecks">
+              <label><input class="uk-checkbox" type="checkbox" [formControlName]="role.fieldName"> {{role.label}}</label>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <!--
+    <a class="uk-accordion-title" href="#">Roles</a>
+    <div class="uk-accordion-content">
+      <form [formGroup]="_roleForm">
+        <fieldset class="uk-fieldset">
+          <div class="uk-margin" *ngFor="let role of _roleChecks">
+            <label><input class="uk-checkbox" type="checkbox" [formControlName]="role.fieldName"> {{role.label}}</label>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  -->
+  </li>
+</ul>

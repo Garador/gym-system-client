@@ -1,0 +1,151 @@
+<div class="uk-position-relative">
+  <nav class="uk-navbar-container" uk-navbar="dropbar: true">
+    <div class="uk-navbar-left">
+      <ul class="uk-navbar-nav">
+        <li>
+          <a (click)="goMainScreen()">Pantalla Principal</a>
+        </li>
+        <li *ngIf="canShowClientsMenu">
+          <a (click)="searchClients()">Cliente</a>
+          <div class="uk-navbar-dropdown" id="clientNavbarDropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li><a *ngIf="userService.canIncorporate" (click)="incorporateUser()" uk-toggle="target: #clientNavbarDropdown">Incorporar</a></li>
+              <li><a *ngIf="userService.canDesincorporate" (click)="desincorporateClient()" uk-toggle="target: #clientNavbarDropdown">Desincorporar</a></li>
+              <li><a *ngIf="userService.canIncorporate" (click)="reincorporateClient()" uk-toggle="target: #clientNavbarDropdown">Reincorporar</a></li>
+              <li><a *ngIf="userService.canSearchClients" uk-toggle="target: #clientNavbarDropdown" (click)="searchClients()">Buscar</a></li>
+              <li><a *ngIf="userService.canConsultClients" (click)="consultUser()" uk-toggle="target: #clientNavbarDropdown">Consultar</a></li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="canShowPaymentsMenu">
+          <a (click)="searchPayment()">Pagos</a>
+          <div class="uk-navbar-dropdown" id="paymentNavbarDropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li><a *ngIf="userService.canAddPayments" (click)="addPayment()" uk-toggle="target: #paymentNavbarDropdown">Añadir</a></li>
+              <li><a *ngIf="userService.canSearchPayments" (click)="searchPayment()" uk-toggle="target: #paymentNavbarDropdown">Buscar</a></li>
+            </ul>
+          </div>
+        </li>
+        <li *ngIf="canShowAdminsMenu">
+          <a (click)="searchAdmins()">Administradores</a>
+          <div class="uk-navbar-dropdown" id="adminNavbarDropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li *ngIf="userService.canAddAdmin" (click)="createAdmin()" uk-toggle="target: #adminNavbarDropdown"><a>Añadir</a></li>
+              <li *ngIf="userService.canUpdateAdmin" (click)="updateAdmin()" uk-toggle="target: #adminNavbarDropdown"><a>Actualizar</a></li>
+              <li *ngIf="userService.canRemoveAdmin" (click)="removeAdmin()" uk-toggle="target: #adminNavbarDropdown"><a>Eliminar</a></li>
+              <li *ngIf="userService.canSearchAdmin" (click)="restoreAdmin()" uk-toggle="target: #adminNavbarDropdown"><a>Restaurar</a></li>
+              <li *ngIf="userService.canSearchAdmin" (click)="searchAdmins()" uk-toggle="target: #adminNavbarDropdown"><a>Buscar</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a>Administración</a>
+          <div class="uk-navbar-dropdown" id="administrationNavbarDropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li *ngIf="canShowLogs" (click)="viewLogs()" uk-toggle="target: #administrationNavbarDropdown"><a>Logs</a></li>
+              <li *ngIf="canShowExportImportMenu" (click)="exportImport()" uk-toggle="target: #administrationNavbarDropdown"><a>Exportar/Importar</a></li>
+              <li (click)="configure()" uk-toggle="target: #administrationNavbarDropdown"><a>Configuración de cliente</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="uk-navbar-right">
+      <ul class="uk-navbar-nav">
+        <li *ngIf="!userService.loggedIn" >
+          <!--<a uk-toggle="target: #loginModal">Entrar</a>-->
+          <a (click)="logIn()">Entrar</a>
+        </li>
+        <li *ngIf="userService.loggedIn" >
+          <a (click)="logOut()">Salir</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="uk-navbar-dropbar"></div>
+</div>
+<div>
+    <!--LOGIN-->
+    <div uk-modal class="loginModal">
+      <div class="uk-modal-dialog uk-modal-body">
+        <app-login></app-login>
+      </div>
+    </div>
+    <!--LOGIN-->
+    <!--ADMIN-->
+    <div uk-modal class="adminCreationModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-create-admin #createAdminComponent></app-create-admin>
+        </div>
+    </div>
+    <div uk-modal id="removeAdminModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-remove-admin #removeAdminComponent></app-remove-admin>
+        </div>
+    </div>
+    <div uk-modal id="restoreAdminModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-restore-admin #restoreAdminComponent></app-restore-admin>
+        </div>
+    </div>
+    <div uk-modal id="updateAdminModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-update-admin #updateAdminComponent></app-update-admin>
+        </div>
+    </div>
+    <div uk-modal id="adminDetailsModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-admin-details #adminDetailsComponent></app-admin-details>
+        </div>
+    </div>
+    <!--ADMIN-->
+
+    <!--CLIENTES-->
+    <div uk-modal class="clientCreationModal">
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-incorporate-client #incorporateClientComponent></app-incorporate-client>
+        </div>
+    </div>
+    <div uk-modal class="desincorporateClientModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-desincorporate-client #desincorporateClientComponent></app-desincorporate-client>
+        </div>
+    </div>
+    <div uk-modal class="reincorporateClientModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-restore-client #reincorporateClientComponent></app-restore-client>
+        </div>
+    </div>
+    <div uk-modal class="updateClientModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-update-client #updateClientComponent></app-update-client>
+        </div>
+    </div>
+    <div uk-modal class="consultClientModal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-consult-client></app-consult-client>
+        </div>
+    </div>
+    <div uk-modal class="clientDetailsmodal" >
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-client-details #clientDetailsComponent></app-client-details>
+        </div>
+    </div>
+    <!--CLIENTES-->
+
+    <!--PAGOS-->
+    <div uk-modal class="addPaymentModal">
+        <div class="uk-modal-dialog uk-modal-body">
+        <app-create-payment #createPaymentComponent></app-create-payment>
+        </div>
+    </div>
+    <!--PAGOS-->
+
+    <!--Configuración-->
+    <div uk-modal class="appConfigurationComponent">
+      <div class="uk-modal-dialog uk-modal-body">
+      <app-conf #appConfigurationComponent></app-conf>
+      </div>
+    </div>
+    <!--/Configuración-->
+</div>

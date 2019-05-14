@@ -1,0 +1,147 @@
+<ul uk-accordion="collapsible: true; multiple:true">
+  <li class="uk-open">
+    <a class="uk-accordion-title" href="#">Filtro de Búsqueda</a>
+    <div class="uk-accordion-content uk-grid">
+      <form class="uk-width-1-1 uk-search uk-search-navbar" [formGroup]="_searchForm" (keyup.enter)="searchAdmin()">
+        <a class="uk-search-icon-flip" uk-search-icon (click)="searchAdmin()"></a>
+        <input class="uk-input document_content_input" placeholder="Cédula" type="text"
+        placeholder="Cédula"
+        [ngClass]="
+          {'uk-form-danger':(
+            !_searchForm.controls.document_content.pristine &&
+            !_searchForm.controls.document_content.valid
+            )
+          }
+          "
+        [value]="_searchForm.controls.document_content.value | documentFormatPipe:'CI':_searchForm.controls.document_content"
+        formControlName="document_content">
+      </form>
+    </div>
+  </li>
+  <li class="uk-open">
+    <a class="uk-accordion-title" href="#">Datos Principales</a>
+    <div class="uk-accordion-content">
+      <form [formGroup]="_adminUpdateForm" (ngShow)="_adminUpdateForm" class='uk-grid-small' uk-grid>
+        <div class="uk-width-1-1@s">
+          <legend>Cédula</legend>
+          <input class="uk-input document_content_input" type="text" [ngClass]="
+                {'uk-form-danger':(
+                  !_adminUpdateForm.controls.document_content.pristine
+                  && !_adminUpdateForm.controls.document_content.valid
+                  )
+                }
+                "
+            [value]="_adminUpdateForm.controls.document_content.value | documentFormatPipe:'CI':_adminUpdateForm.controls.document_content"
+            formControlName="document_content">
+        </div>
+        <div class="uk-width-1-2@s">
+          <legend>Nombre</legend>
+          <input class="uk-input" type="text" [ngClass]="
+                {'uk-form-danger':(
+                  !_adminUpdateForm.controls.firstname.pristine
+                  && !_adminUpdateForm.controls.firstname.valid
+                  )
+                }
+                "
+            formControlName="firstname">
+        </div>
+
+        <div class="uk-width-1-2@s">
+          <legend>Apellido</legend>
+          <input class="uk-input" type="text" [ngClass]="
+              {'uk-form-danger':(
+                !_adminUpdateForm.controls.surname.pristine
+                && !_adminUpdateForm.controls.surname.valid
+                )
+              }
+              "
+            formControlName="surname">
+        </div>
+
+        <div class="uk-width-1-1@s">
+          <legend>Dirección</legend>
+          <textarea rows='4' class='uk-textarea' [ngClass]="
+              {'uk-form-danger':(
+                !_adminUpdateForm.controls.address.pristine
+                && !_adminUpdateForm.controls.address.valid
+                ),
+                'uk-textarea':1
+              }
+              "
+            formControlName="address"></textarea>
+        </div>
+
+        <div class="uk-width-1-1">
+          <legend>Telefono</legend>
+          <input type="text" class="uk-input" [ngClass]="
+              {'uk-form-danger':(
+                !_adminUpdateForm.controls.phone.pristine
+                && !_adminUpdateForm.controls.phone.valid
+                )
+              }
+              "
+            formControlName="phone">
+        </div>
+
+        <div class="uk-width-1-2">
+          <legend>Nombre de Usuario</legend>
+          <input class="uk-input" type="text" [ngClass]="
+                {'uk-form-danger':(
+                  !_adminUpdateForm.controls.username.pristine
+                  && !_adminUpdateForm.controls.username.valid
+                  )
+                }
+                "
+            formControlName="username">
+        </div>
+
+        <div class="uk-width-1-2">
+          <legend>Contraseña</legend>
+          <input class="uk-input" type="password" [ngClass]="
+                {'uk-form-danger':(
+                  !_adminUpdateForm.controls.password.pristine
+                  && !_adminUpdateForm.controls.password.valid
+                  )
+                }"
+            formControlName="password">
+        </div>
+      </form>
+    </div>
+  </li>
+  <li>
+    <a class="uk-accordion-title" href="#">Roles</a>
+    <div class="uk-accordion-content">
+      <form [formGroup]="_roleForm">
+        <fieldset class="uk-fieldset">
+          <div class="uk-grid uk-margin" uk-grid>
+            <div class="uk-width-1-2" *ngFor="let role of _roleChecks">
+              <label><input class="uk-checkbox" type="checkbox" [formControlName]="role.fieldName"> {{role.label}}</label>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </li>
+</ul>
+<div class='update-admin-actions'>
+  <div class="uk-grid">
+    <div class="uk-width-2-5">
+      <button class="uk-button uk-button-primary" 
+      [disabled]="!_actualUser || !_adminUpdateForm.valid" 
+      uk-tooltip="title:Actualizar Perfil"
+      type="button" (click)="updateAdmin()">ACT.
+        Perfil</button>
+    </div>
+    <div class="uk-width-2-5">
+      <button class="uk-width-2-6 uk-button uk-button-primary"
+      uk-tooltip="title:Actualizar Rol" 
+      [disabled]="!actualUser" type="button" (click)="updateAdminRole()">ACT.
+        Rol</button>
+    </div>
+    <div class="uk-width-1-5">
+      <button class="uk-width-1-6 uk-button uk-button-secondary" 
+      uk-tooltip="title:Cancelar" 
+      type="button" (click)="cancel()">X</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="uk-container">
+    <form class="uk-grid-small uk-form" uk-grid [formGroup]="_clientIncorporationForm" 
+    (ngShow)="_clientIncorporationForm" (keyup.enter)="incorporateClient()">
+        <div class="uk-width-1-1">
+            <legend>Cédula</legend>
+            <input class="uk-input document_content_input" type="text"  
+                [ngClass]="
+                {'uk-form-danger':(
+                  !this._clientIncorporationForm.pristine
+                  && !_clientIncorporationForm.controls.document_content.valid
+                  )
+                }
+                "
+                [value]="_clientIncorporationForm.controls.document_content.value | documentFormatPipe:'CI':_clientIncorporationForm.controls.document_content"
+                formControlName="document_content">
+        </div>
+        <div class="uk-width-1-2@s">
+            <legend>Nombre</legend>
+            <input class="uk-input" type="text"  
+            [ngClass]="
+            {'uk-form-danger':(
+              !this._clientIncorporationForm.pristine
+              && !_clientIncorporationForm.controls.firstname.valid
+              )
+            }
+            "
+            formControlName="firstname">
+        </div>
+        <div class="uk-width-1-2@s">
+          <legend>Apellido</legend>
+          <input class="uk-input" type="text"  
+          [ngClass]="
+          {'uk-form-danger':(
+            !this._clientIncorporationForm.pristine
+            && !_clientIncorporationForm.controls.surname.valid
+            )
+          }
+          "
+          formControlName="surname">
+        </div>
+        <div class="uk-width-1-1@s">
+          <legend>Dirección</legend>
+          <textarea rows='4' class="uk-textarea" type="text" 
+          (keyup.enter)="return;"
+          [ngClass]="
+          {'uk-form-danger':(
+            !this._clientIncorporationForm.pristine
+            && !_clientIncorporationForm.controls.address.valid
+            )
+          }
+          "
+          formControlName="address"></textarea>
+        </div>
+        <div class="uk-width-1-2">
+          <legend>Teléfono</legend>
+          <input class="uk-input" type="phone" placeholder="584125557847" 
+          [ngClass]="
+          {'uk-form-danger':(
+            !this._clientIncorporationForm.pristine
+            && !_clientIncorporationForm.controls.phone.valid
+            )
+          }
+          "
+          formControlName="phone">
+        </div>
+        <div class="uk-width-1-2">
+          <legend>Monto por Mes</legend>
+          <input class="uk-input" type="number" placeholder="Monto por Mes (VES)"
+          [ngClass]="
+          {'uk-form-danger':(
+            !this._clientIncorporationForm.pristine
+            && !_clientIncorporationForm.controls.month_ammount.valid
+            )
+          }
+          "
+          formControlName="month_ammount">
+        </div>
+        <div class="uk-width-1-2@s">
+          <legend>Inscripción</legend>
+          <input class="uk-input js-date" type="text"
+          id="incorporateClientsComponentInscriptionDateInput"
+          [value]="_clientIncorporationForm.controls.inscription_date.value | jqueryDatePickerPipe:'incorporateClientsComponentInscriptionDateInput':_clientIncorporationForm.controls.inscription_date"
+          [ngClass]="
+          {'uk-form-danger':(
+            !this._clientIncorporationForm.pristine
+            && !_clientIncorporationForm.controls.inscription_date.valid
+            )
+          }
+          "
+          formControlName="inscription_date">
+        </div>
+        <div class="uk-width-1-2@s">
+          <legend>Corte</legend>
+          <input class="uk-input js-date" type="text"
+          id="incorporateClientsComponentCutDateInput"
+          [value]="_clientIncorporationForm.controls.cut_date.value | jqueryDatePickerPipe:'incorporateClientsComponentCutDateInput':_clientIncorporationForm.controls.cut_date"
+          [ngClass]="
+          {'uk-form-danger':(
+            !this._clientIncorporationForm.pristine
+            && !_clientIncorporationForm.controls.cut_date.valid
+            )
+          }
+          "
+          formControlName="cut_date">
+        </div>
+        <div class="uk-width-1-2 uk-margin">
+            <button class="uk-button uk-button-primary"  type="button" (click)="incorporateClient()">Incorporar</button>
+        </div>
+        <div class="uk-width-1-2 uk-margin">
+            <button class="uk-button uk-button-secondary"  type="button" (click)="cancel()">Cerrar</button>
+        </div>
+    </form>
+</div>

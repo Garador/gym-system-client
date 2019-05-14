@@ -1,0 +1,158 @@
+<div class="uk-container uk-margin min-height-50">
+  <ul uk-accordion="collapsible: true; multiple:true">
+    <li class="uk-open">
+      <a class="uk-accordion-title" href="#">Búsqueda de Admins</a>
+      <div class="uk-accordion-content">
+        <form class="uk-grid-small" uk-grid [formGroup]="_searchForm" (ngShow)="_searchForm" (onsubmit)="search()">
+          <div class="uk-width-1-2@s">
+            <legend>Cédula</legend>
+            <input class="uk-input document_content_input" type="text"  [ngClass]="
+                  {'uk-form-danger':(
+                    !_searchForm.controls.document_content.pristine &&
+                    !_searchForm.controls.document_content.valid
+                    )
+                  }
+                  "
+              [value]="_searchForm.controls.document_content.value | documentFormatPipe:'CI':_searchForm.controls.document_content"
+              formControlName="document_content">
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Nombre</legend>
+            <input class="uk-input" type="text"  [ngClass]="
+                  {'uk-form-danger':(
+                    !_searchForm.controls.firstname.pristine &&
+                    !_searchForm.controls.firstname.valid
+                    )
+                  }
+                  "
+              formControlName="firstname">
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Apellido</legend>
+            <input class="uk-input" type="text"  [ngClass]="
+                  {'uk-form-danger':(
+                    !_searchForm.controls.surname.pristine &&
+                    !_searchForm.controls.surname.valid
+                    )
+                  }
+                  "
+              formControlName="surname">
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Teléfono</legend>
+            <input class="uk-input" type="phone"  [ngClass]="
+                  {'uk-form-danger':(
+                    !_searchForm.controls.phone.pristine &&
+                    !_searchForm.controls.phone.valid
+                    )
+                  }
+                  "
+              formControlName="phone">
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Status</legend>
+            <select class="uk-select" formControlName="status">
+              <option *ngFor="let option of SEARCH_OPTIONS_STATUS" [value]="option.value">
+                {{option.title}}
+              </option>
+            </select>
+          </div>
+          <div class="uk-width-1-2@s">
+            <legend>Dirección</legend>
+            <textarea rows='4' class="uk-textarea" type="text"  [ngClass]="
+                  {'uk-form-danger':(
+                    !_searchForm.controls.address.pristine &&
+                    !_searchForm.controls.address.valid
+                    )
+                  }
+                  "
+              formControlName="address"></textarea>
+          </div>
+          <div class="uk-width-1-1 uk-margin">
+            <button class="uk-button uk-button-primary"  type="button" (click)="search()">Buscar Administrador</button>
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="uk-open">
+      <a class="uk-accordion-title" href="#">Resultados</a>
+      <div class="uk-accordion-content">
+        <table class="uk-table">
+          <caption>
+            <h3>Usuarios</h3>
+          </caption>
+          <thead>
+            <tr>
+              <th (click)="sortSearch('user','name')">
+                Nombre
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('user','name')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('user','name')"></span>
+              </th>
+              <th (click)="sortSearch('login','username')">
+                Login
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('login','username')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('login','username')"></span>
+              </th>
+              <th (click)="sortSearch('user','phone')">
+                Telefono
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('user','phone')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('user','phone')"></span>
+              </th>
+              <th (click)="sortSearch('user','createdAt')">
+                Creado
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('user','createdAt')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('user','createdAt')"></span>
+              </th>
+              <th class='uk-table-expand'>
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let jUser of _userResults">
+              <td>
+                <span>{{jUser.firstName}}</span>
+              </td>
+              <td>
+                <span>{{jUser.login.username}}</span>
+              </td>
+              <td>
+                <span>{{jUser.phone}}</span>
+              </td>
+              <td>
+                <span>{{jUser.createdAt | date:'dd/MM/yyyy'}}</span>
+              </td>
+              <td>
+                <div class="uk-button-group user-actions">
+                  <a *ngIf="userService.canUpdateAdmin"
+                  uk-tooltip="title:Actualizar Administrador"
+                  class="uk-icon-button" uk-icon="pencil" (click)="updateAdmin(jUser)"></a>
+                  <a *ngIf="(jUser.status === ADMIN_STATUS.ACTIVE) && (userService.canRemoveAdmin)" 
+                  uk-tooltip="title:Remover Administrador"
+                  class='uk-icon-button'
+                    uk-icon="trash" (click)="removeAdmin(jUser)"></a>
+                  <a *ngIf="(jUser.status === ADMIN_STATUS.DELETED) && (userService.canRestoreAdmin)" 
+                  uk-tooltip="title:Reincorporar Administrador"
+                  class='uk-icon-button'
+                    uk-icon="refresh" (click)="restoreAdmin(jUser)"></a>
+                  <a class='uk-icon-button'
+                  uk-tooltip="title:Detalles del Administrador"
+                  uk-icon="user" (click)="viewAdminDetails(jUser)"></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5">
+                <app-search-paging #searchPagingComponent></app-search-paging>
+              </td>
+            </tr>
+            <tr>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </li>
+  </ul>
+</div>

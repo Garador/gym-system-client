@@ -1,0 +1,136 @@
+<div class="uk-container uk-margin min-height-50">
+  <ul uk-accordion="collapsible: true; multiple:true">
+    <li class="uk-open">
+      <a class="uk-accordion-title" href="#">Búsqueda de Logs</a>
+      <div class="uk-accordion-content">
+        <form class="uk-grid-small" uk-grid [formGroup]="_searchForm" (ngShow)="_searchForm" (onsubmit)="search()">
+          <div class="uk-width-1-2@s" uk-grid>
+            <div class='uk-grid' uk-grid>
+              <div class="uk-width-1-1@s">
+                <legend>Acción</legend>
+              </div>
+              <div class="uk-width-1-1@s">
+                <select class="uk-select" formControlName="action_performed">
+                  <option value="">Todas</option>
+                  <option *ngFor="let option of SEARCH_OPTIONS_ACTION" [value]="option.value">{{option.title}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="uk-width-1-2@s">
+            <div class="uk-grid" uk-grid>
+              <div class="uk-width-1-1@s">
+                <legend>Tiempo de Evento</legend>
+              </div>
+              <div class="uk-width-1-2@s">
+                <select class="uk-select" formControlName="event_time_search_option">
+                  <option *ngFor="let option of SEARCH_OPTIONS_DATE" [value]="option.value">{{option.title}}</option>
+                </select>
+              </div>
+              <div class="uk-width-1-2@s">
+                <input class="uk-input" type="text"
+                id="searchLogsComponentEventTimeInput"
+                [value]="_searchForm.controls.event_time.value | jqueryDatePickerPipe:'searchLogsComponentEventTimeInput':_searchForm.controls.event_time"
+                [ngClass]="
+                  {'uk-form-danger':(
+                    !_searchForm.controls.event_time.pristine &&
+                    !_searchForm.controls.event_time.valid
+                    )
+                  }
+                  "
+                  formControlName="event_time">
+              </div>
+            </div>
+          </div>
+          <div class="uk-width-1-1 uk-margin">
+            <button class="uk-button uk-button-primary" (click)="search()">Buscar Logs</button>
+          </div>
+        </form>
+        <div class="uk-width-1-1@s">
+          <div class="uk-grid-small" uk-grid>
+            <div class="uk-width-1-3@s">
+              <legend>Usuario</legend>
+            </div>
+            <div class="uk-width-1-3@s" *ngIf="!includedUser">
+              NO CARGADO
+            </div>
+            <div class="uk-width-1-3@s" *ngIf="includedUser">
+              {{includedUser.firstName}}
+              <a class='uk-icon-button uk-background-primary' uk-icon="close" (click)="removeUser()"></a>
+            </div>
+            <div class="uk-width-1-3@s">
+              <button class="uk-button uk-button-secondary"  type="button" (click)="loadUser()">Cargar Usuario</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="uk-open">
+      <a class="uk-accordion-title" href="#">Resultados</a>
+      <div class="uk-accordion-content">
+        <table class="uk-table">
+          <caption>
+            <h3>Logs</h3>
+          </caption>
+          <thead>
+            <tr>
+              <th (click)="sortSearch('log','action_performed')">
+                Acción Realizada
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('log','action_performed')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('log','action_performed')"></span>
+              </th>
+              <th (click)="sortSearch('log','event_time')">
+                Fecha de Evento
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('log','event_time')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('log','event_time')"></span>
+              </th>
+              <th (click)="sortSearch('user','name')">
+                Usuario
+                <span class='record_action' uk-icon="triangle-up" *ngIf="isSortAscending('user','name')"></span>
+                <span class='record_action' uk-icon="triangle-down" *ngIf="!isSortAscending('user','name')"></span>
+              </th>
+              <th>
+                Acciones                
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let jLog of _logResults">
+              <td>
+                <span>{{getAction(jLog)}}</span>
+              </td>
+              <td>
+                <span>{{jLog.actionTime | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+              </td>
+              <td class='uk-text-truncate'>
+                <span>{{getUser(jLog)}}</span>
+              </td>
+              <td>
+                <div class="uk-button-group user-actions">
+                  <a class="uk-icon-button"
+                  uk-tooltip="title:Detalles del Log"
+                  uk-icon="info" (click)="viewLogData(jLog)" ></a>                  
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <app-search-paging #searchPagingComponent></app-search-paging>
+              </td>
+            </tr>
+            <tr>
+              <app-load-user #loadUserComponent></app-load-user>
+            </tr>
+            <div uk-modal class="logContentDetailsModal">
+              <div class="uk-modal-dialog uk-modal-body">
+                <app-log-content-details #logContentDetailsComponent></app-log-content-details>
+              </div>
+            </div>
+          </tfoot>
+        </table>
+      </div>
+    </li>
+  </ul>
+</div>

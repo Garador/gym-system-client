@@ -1,0 +1,31 @@
+<button class="uk-modal-close-default" type="button" uk-close></button>
+<div class="uk-container">
+    <form class="uk-grid-small" uk-grid [formGroup]="_dataForm" (ngShow)="_dataForm">
+      <div class="uk-width-1-2">
+        <legend>Host de Conexión</legend>
+        <input class="uk-input" type="text" [ngClass]="
+                  {'uk-form-danger':(
+                    !_dataForm.controls.socketHost.pristine &&
+                    !_dataForm.controls.socketHost.valid
+                    )
+                  }
+                  "
+          formControlName="socketHost">
+      </div>
+      <div class="uk-width-1-2@s">
+        <legend>Puerto</legend>
+        <input class="uk-input" type="number" [ngClass]="
+              {'uk-form-danger':(
+                !_dataForm.controls.socketPort.pristine &&
+                !_dataForm.controls.socketPort.valid
+                )
+              }
+              "
+          formControlName="socketPort">
+      </div>
+      <div class="uk-margin">
+          <button class="uk-button uk-button-primary" (click)="save()" type="button">Actualizar</button>
+      </div>
+    </form>
+  </div>
+  

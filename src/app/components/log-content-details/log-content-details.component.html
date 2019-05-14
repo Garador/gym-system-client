@@ -1,0 +1,344 @@
+<button class="uk-modal-close-default" type="button" uk-close></button>
+<div class="uk-grid">
+  <div class="uk-width-1-1" *ngIf="log && log.content">
+    <div class="uk-panel" style="word-wrap: break-word;">
+      <h3 class="uk-panel-title">Data Previa</h3>
+      {{log.content.previousValue | json}}
+    </div>
+  </div>
+  <div class="uk-width-1-1">
+    <hr />
+  </div>
+  <div class="uk-width-1-1" *ngIf="log && log.content">
+    <div class="uk-panel" style="word-wrap: break-word;">
+      <h3 class="uk-panel-title">Data Nueva</h3>
+      {{log.content.newValue | json}}
+    </div>
+  </div>
+  <div class="uk-width-1-1">
+    <hr />
+  </div>
+  <div class="uk-width-1-1" *ngIf="log">
+    <div class="uk-panel" style="word-wrap: break-word;">
+      <h3 class="uk-panel-title">Fecha de Evento <small><b>{{log.actionTime | date:'dd/MM/yyyy HH:mm:ss'}}</b></small></h3>
+    </div>
+  </div>
+  <div class="uk-width-1-1">
+    <hr />
+  </div>
+  <div class="uk-width-1-1" *ngIf="log">
+    <div class="uk-panel">
+      <!--Pago Agregado-->
+      <table class='uk-table' *ngIf="log.action === LogActions.payment_add">
+        <thead>
+          <tr>
+            <th>
+              Grupo
+            </th>
+            <th>
+              Campo
+            </th>
+            <th>
+              Valor
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="(log.action === LogActions.payment_add) && log.content">
+          <tr *ngIf="log.content.newValue">
+            <td>
+              Pago
+            </td>
+            <td>
+              Monto
+            </td>
+            <td>
+              {{getParsedAmmount(log.content.newValue.payment.ammount)}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue">
+            <td>
+              Pago
+            </td>
+            <td>
+              Moneda
+            </td>
+            <td>
+              {{log.content.newValue.payment.currency}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue">
+            <td>
+              Pago
+            </td>
+            <td>
+              Notas
+            </td>
+            <td>
+              {{log.content.newValue.payment.notes}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue.membership">
+            <td>
+              Membresia
+            </td>
+            <td>
+              Fecha de Corte
+            </td>
+            <td>
+              {{getParsedDate(log.content.newValue.membership.cutDate)}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue.membership">
+            <td>
+              Membresia
+            </td>
+            <td>
+              Monto Mensual
+            </td>
+            <td>
+              {{getParsedAmmount(log.content.newValue.membership.monthAmmount)}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.membership">
+            <td>
+              Usuario
+            </td>
+            <td colspan="2">
+              {{log.content.newValue.affected_user_id}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--/Pago Agregado-->
+      <!--Actualización de Cliente-->
+      <table class='uk-table' *ngIf="log.action === LogActions.client_update">
+        <thead>
+          <tr>
+            <th>
+              Grupo
+            </th>
+            <th>
+              Valor Actualizado
+            </th>
+            <th>
+              Valor Previo
+            </th>
+            <th>
+              Valor Nuevo
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="(log.action === LogActions.client_update) && log.content">
+          <tr *ngIf="log.content.newValue && log.content.newValue.phone">
+            <td>
+              Usuario
+            </td>
+            <td>
+              Teléfono
+            </td>
+            <td>
+              {{log.content.previousValue.phone}}
+            </td>
+            <td>
+              {{log.content.newValue.phone}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.address">
+            <td>
+              Usuario
+            </td>
+            <td>
+              Dirección
+            </td>
+            <td>
+              {{log.content.previousValue.address}}
+            </td>
+            <td>
+              {{log.content.newValue.address}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.surName">
+            <td>
+              Usuario
+            </td>
+            <td>
+              Apellido
+            </td>
+            <td>
+              {{log.content.previousValue.surName}}
+            </td>
+            <td>
+              {{log.content.newValue.surName}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.firstName">
+            <td>
+              Usuario
+            </td>
+            <td>
+              Nombre
+            </td>
+            <td>
+              {{log.content.previousValue.firstName}}
+            </td>
+            <td>
+              {{log.content.newValue.firstName}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.membership && log.content.newValue.membership.cutDate">
+            <td>
+              Membresia
+            </td>
+            <td>
+              Fecha de Corte
+            </td>
+            <td>
+              {{getParsedDate(log.content.previousValue.membership.cutDate)}}
+            </td>
+            <td>
+              {{getParsedDate(log.content.newValue.membership.cutDate)}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.membership && log.content.newValue.membership.inscriptionDate">
+            <td>
+              Membresia
+            </td>
+            <td>
+              Fecha de Inscripción
+            </td>
+            <td>
+              {{getParsedDate(log.content.previousValue.membership.inscriptionDate)}}
+            </td>
+            <td>
+              {{getParsedDate(log.content.newValue.membership.inscriptionDate)}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.membership && log.content.newValue.membership.monthAmmount">
+            <td>
+              Membresia
+            </td>
+            <td>
+              Monto por Mes
+            </td>
+            <td>
+              {{getParsedAmmount(log.content.previousValue.membership.monthAmmount)}}
+            </td>
+            <td>
+              {{getParsedAmmount(log.content.newValue.membership.monthAmmount)}}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" style='text-align:center'>
+              <button class="uk-button uk-button-small uk-button-primary" [disabled]="!userService.canConsultClients"
+                (click)="viewClientDetails(log.content.newValue.affected_user_id)">Cliente</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--/Actualización de Cliente-->
+      <!--Agregado Cliente-->
+      <table class='uk-table' *ngIf="log.action === LogActions.client_incorporate">
+        <thead>
+          <tr>
+            <th>
+              Grupo
+            </th>
+            <th>
+              Valor Actualizado
+            </th>
+            <th>
+              Valor Nuevo
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="(log.action === LogActions.client_incorporate) && log.content">
+          <tr *ngIf="log.content.newValue && log.content.newValue.phone">
+            <td>
+              Usuario
+            </td>
+            <td>
+              Teléfono
+            </td>
+            <td>
+              {{log.content.newValue.phone}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.address">
+            <td>
+              Usuario
+            </td>
+            <td>
+              Dirección
+            </td>
+            <td>
+              {{log.content.newValue.address}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.surName">
+            <td>
+              Usuario
+            </td>
+            <td>
+              Apellido
+            </td>
+            <td>
+              {{log.content.newValue.surName}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.firstName">
+            <td>
+              Usuario
+            </td>
+            <td>
+              Nombre
+            </td>
+            <td>
+              {{log.content.newValue.firstName}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.membership && log.content.newValue.membership.cutDate">
+            <td>
+              Membresia
+            </td>
+            <td>
+              Fecha de Corte
+            </td>
+            <td>
+              {{getParsedDate(log.content.newValue.membership.cutDate)}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.membership && log.content.newValue.membership.inscriptionDate">
+            <td>
+              Membresia
+            </td>
+            <td>
+              Fecha de Inscripción
+            </td>
+            <td>
+              {{getParsedDate(log.content.newValue.membership.inscriptionDate)}}
+            </td>
+          </tr>
+          <tr *ngIf="log.content.newValue && log.content.newValue.membership && log.content.newValue.membership.monthAmmount">
+            <td>
+              Membresia
+            </td>
+            <td>
+              Monto por Mes
+            </td>
+            <td>
+              {{getParsedAmmount(log.content.newValue.membership.monthAmmount)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!--/Agregado Cliente-->
+    </div>
+  </div>
+  <!--
+  <div class="uk-width-medium-1-1" *ngIf="!log || !log.content">
+      <div class="uk-panel">
+          <h3 class="uk-panel-title">Contenido no cargado aún</h3>
+      </div>
+  </div>
+    -->
+</div>

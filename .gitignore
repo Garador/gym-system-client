@@ -1,0 +1,8 @@
+node_modules
+flamingo-client-win32-ia32
+release-builds
+e2e
+.vscode
+dist
+_notes
+TODO

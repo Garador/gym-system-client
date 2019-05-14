@@ -1,0 +1,81 @@
+<div class='main-screen-container'>
+  <div class="main-screen-container" id="mainContainer">
+    <div>
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" [disabled]="!userService.canIncorporate"
+        (click)="incorporateUser()">Incorporar</button>
+    </div>
+    <div>
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" [disabled]="!userService.canDesincorporate"
+        (click)="desincorporatClient()">Desincorporar</button>
+    </div>
+    <div>
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" [disabled]="!userService.canDesincorporate"
+        (click)="reincorporateClient()">Reincorporar</button>
+    </div>
+    <div>
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" [disabled]="!userService.canConsultClients"
+        (click)="consultUser()">Consultar</button>
+    </div>
+    <div>
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" [disabled]="!userService.canConsultClients"
+        (click)="searchClients()">Buscar Clientes</button>
+    </div>
+    <div>
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" [disabled]="!userService.canUpdateClient"
+        (click)="updateClient()">Modificar</button>
+    </div>
+    <div>
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" [disabled]="!userService.canBackupAndRestore"
+        (click)="backupData()">Respaldar</button>
+    </div>
+    <div>
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" [disabled]="!userService.canAddPayments"
+        (click)="addPayment()">Agregar Pago</button>
+    </div>
+    <div *ngIf="userService.canAddAdmin">
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" (click)="createAdmin()">Agregar
+        Admin</button>
+    </div>
+    <div *ngIf="userService.canUpdateAdmin">
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" (click)="updateAdmin()">Modificar
+        Admin</button>
+    </div>
+    <div *ngIf="userService.canRemoveAdmin">
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" (click)="removeAdmin()">Eliminar
+        Admin</button>
+    </div>
+    <div *ngIf="userService.canRestoreAdmin">
+      <br>
+      <button class="uk-button uk-button-large uk-button-primary main-screen-button" (click)="restoreAdmin()">Restaurar
+        Admin</button>
+    </div>
+    <br>
+    <br>
+    <button *ngIf="!userService.loggedIn" class="uk-button uk-button-large uk-button-primary main-screen-button"
+      (click)="logIn()">Entrar</button>
+    <button *ngIf="userService.loggedIn" class="uk-button uk-button-large uk-button-primary main-screen-button" (click)="logOut()">Salir</button>
+    <br>
+    <br>
+  </div>
+  <div class="main-screen-footer" *ngIf="false">
+    <h3>hey there</h3>
+  </div>
+  <div id="modalsDiv">
+    <div uk-modal id="exportDataComponentModal" *ngIf="userService.canExportData">
+      <div class="uk-modal-dialog uk-modal-body">
+        <app-export-data #exportDataComponent></app-export-data>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="uk-container">
+    <form [formGroup]="_loginForm" (keyup.enter)="logIn()">
+        <fieldset class="uk-fieldset">
+            <div class="uk-margin">
+                <legend class="uk-legend">Nombre de Usuario</legend>
+                <input class="uk-input" type="text" numbers                 
+                [ngClass]="
+                {'uk-form-danger':(
+                  !_loginForm.controls.username.pristine
+                  && !_loginForm.controls.username.valid
+                  )
+                }
+                "
+                formControlName="username">
+            </div>
+            <div class="uk-margin">
+                <legend class="uk-legend">Contraseña</legend>
+                <input class="uk-input" type="password"  
+                [ngClass]="
+                {'uk-form-danger':(
+                  !_loginForm.controls.password.pristine
+                  && !_loginForm.controls.password.valid
+                  )
+                }"
+                formControlName="password">
+            </div>
+        </fieldset>
+    </form>
+    <div class="uk-grid">
+      <div class="uk-width-1-2">
+          <button class="uk-button uk-button-primary"  type="button" (click)="logIn()">Entrar</button>
+      </div>
+      <div class="uk-width-1-2">
+          <button class="uk-button uk-button-secondary" (click)="cancel()">Cerrar</button>
+      </div>
+    </div>
+    <div uk-modal class="updateSuperAdminModal">
+      <div class="uk-modal-dialog uk-modal-body">
+        <app-update-super-admin #superAdminUpdateComponent></app-update-super-admin>
+      </div>
+    </div>
+    <div uk-modal class="createSuperAdminModal">
+      <div class="uk-modal-dialog uk-modal-body">
+        <app-create-superadmin #createSuperAdminComponent></app-create-superadmin>
+      </div>
+    </div>
+</div>

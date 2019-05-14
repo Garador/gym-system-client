@@ -1,0 +1,25 @@
+<div uk-modal id="fetchUserModal">
+  <div class="uk-modal-dialog uk-modal-body">
+    <div class="uk-container">
+      <form [formGroup]="_fetchUserForm" (ngShow)="_fetchUserForm">
+        <fieldset class="uk-fieldset">
+          <div class="uk-margin">
+            <legend class="uk-legend">Cédula del Usuario</legend>
+            <input class="uk-input document_content_input" type="text"  [ngClass]="
+              {'uk-form-danger':(
+                !_fetchUserForm.controls.document_content.pristine
+                && !_fetchUserForm.controls.document_content.valid
+                )
+              }
+              "
+              [value]="_fetchUserForm.controls.document_content.value | documentFormatPipe:'CI':_fetchUserForm.controls.document_content"
+              formControlName="document_content">
+          </div>
+          <div class="uk-margin">
+            <button class="uk-button uk-button-primary"  type="button" (click)="selectUser()">Buscar</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

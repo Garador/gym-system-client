@@ -1,0 +1,66 @@
+<div class="uk-container">
+  <form [formGroup]="_superAdminCreationForm" (ngShow)="_superAdminCreationForm">
+      <fieldset class="uk-fieldset">
+  
+          <div class="uk-margin">
+              <legend class="uk-legend">Nombre</legend>
+              <input class="uk-input" type="text"  
+              [ngClass]="
+              {'uk-form-danger':(
+                !_superAdminCreationForm.controls.firstname.pristine
+                && !_superAdminCreationForm.controls.firstname.valid
+                )
+              }
+              "
+              formControlName="firstname">
+          </div>
+
+          <div class="uk-margin">
+            <legend class="uk-legend">Apellido</legend>
+            <input class="uk-input" type="text"  
+            [ngClass]="
+            {'uk-form-danger':(
+              !_superAdminCreationForm.controls.surname.pristine
+              && !_superAdminCreationForm.controls.surname.valid
+              )
+            }
+            "
+            formControlName="surname">
+          </div>
+  
+          <div class="uk-margin">
+              <legend class="uk-legend">Nombre de Usuario</legend>
+              <input class="uk-input" type="text"  
+              [ngClass]="
+              {'uk-form-danger':(
+                !_superAdminCreationForm.controls.username.pristine
+                && !_superAdminCreationForm.controls.username.valid
+                )
+              }
+              "
+              formControlName="username">
+          </div>
+  
+          <div class="uk-margin">
+              <legend class="uk-legend">Contraseña</legend>
+              <input class="uk-input" type="password"  
+              [ngClass]="
+              {'uk-form-danger':(
+                !_superAdminCreationForm.controls.password.pristine
+                && !_superAdminCreationForm.controls.password.valid
+                )
+              }"
+              formControlName="password">
+          </div>
+  
+          <div class="uk-margin">
+            <!--
+              <button class="uk-button uk-button-primary" (click)="logIn()" 
+              [disabled]="!_superAdminCreationForm.valid"
+              >Entrar</button>
+            -->
+              <button class="uk-button uk-button-primary" [disabled]="!_superAdminCreationForm.valid"  type="button" (click)="createSuperAdmin()">Crear Super-Usuario</button>
+          </div>
+      </fieldset>
+  </form>
+</div>

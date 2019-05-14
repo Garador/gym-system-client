@@ -1,0 +1,260 @@
+html {
+  font: normal 14px / 20px Verdana, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  background: #bfc9d3;
+  color: #000000;
+}
+
+.uk-modal-dialog{
+  font: normal 14px / 20px Verdana, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  background: #bfc9d3;
+  color: #000000;
+
+  .uk-modal-footer {
+    background: #bfc9d3;
+  }
+}
+
+.uk-checkbox {
+  border: 1px solid black;
+}
+
+.uk-accordion-title {
+  background-color: #828385;
+  color: white;
+}
+
+a.uk-accordion-title::before {
+  background-color:white;
+}
+a.uk-accordion-title:hover,
+a.uk-accordion-title:focus,
+a.uk-accordion-title:active
+a.uk-accordion-title.uk-active{
+  color:white;
+}
+body {
+  margin: 0;
+}
+
+/*
+.uk-button-primary {
+  background-color:#020951;
+  font-size:larger;
+}
+
+.uk-button-primary:hover,
+.uk-button-primary:focus,
+.uk-button-primary:active{
+  background-color:#010425;
+  font-size:larger;
+}
+*/
+
+
+/*
+ * Primary
+ */
+
+ .uk-button-primary {
+  background-color:#020951;
+  font-size:larger;
+}
+
+/* Hover + Focus */
+.uk-button-primary:hover,
+.uk-button-primary:focus {
+  background-color:#010427;
+  font-size:larger;
+}
+
+/* OnClick + Active */
+.uk-button-primary:active,
+.uk-button-primary.uk-active {
+  background-color:#020951;
+  font-size:larger;
+}
+
+.uk-button-primary:disabled {
+  background-color:#606063;
+  font-size:larger;
+  color:white;
+}
+
+
+
+
+legend {
+  font-size: larger;
+  font-weight: bold;
+}
+
+a {
+  background: transparent;
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+a,
+.uk-link {
+  color: #0077dd;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover,
+.uk-link:hover {
+  color: #005599;
+  text-decoration: underline;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+.uk-panel-box>.uk-nav-side {
+  margin: 0 -15px;
+}
+
+.uk-panel-box>.uk-nav-side {
+  margin: 0 -15px;
+}
+
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+    background: #828385;
+}
+
+.uk-navbar-nav>li:hover>a, .uk-navbar-nav>li>a.uk-open, .uk-navbar-nav>li>a:focus {
+  color:white;
+}
+.uk-navbar-nav>li>a {
+    color: white;
+}
+.uk-navbar-dropdown-nav>li>a {
+  color: black;
+  font-size: 140%;
+}
+
+.uk-table th {
+  color: black;
+  font-weight: bold;
+}
+
+
+.user-actions{
+  .uk-icon-button{
+      color:black;
+  }
+}
+
+.main-screen-container {
+  min-height: 90vh;
+  .main-screen-container {
+      text-align: center;
+      width:80vw;
+      margin-left:10vw;
+      margin-right: 10vw;
+  }
+}
+
+.main-screen-button {
+  min-width: 40vw;
+  font-weight: bold;
+}
+
+.main-screen-footer {
+  display: relative;
+  height: 10vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+
+.paging-buttons td a {
+  color: black;
+}
+
+
+.past_due_date{
+  color:red;
+  font-weight:bold;
+  font-size: larger;
+}
+
+.good_due_date{
+  color:green;
+  font-weight:bold;
+  font-size: larger;
+}
+
+.js-upload {
+  margin-right: 2em;
+}
+
+.export-import-data li{
+  padding-left: 1em;
+  padding-top: 1em;
+}
+
+.uk-modal-dialog {
+  .uk-modal-footer {
+    button {
+      font-weight: bold;
+      font-size: larger;
+    }
+  }
+}
+
+button.uk-modal-close-default.uk-close.uk-icon  {
+  svg {
+    width: 1.2em !important;
+    color: rgb(170, 15, 15) !important;
+  }
+} 
+
+/*
+.theme-wrapper {
+    --button-primary-background: black;
+    --button-primary-color: white;
+}
+// pass variables into a sass map
+$variables: (
+    --button-primary-background: var(--button-primary-background),
+    --button-primary-color: var(--button-primary-color),
+);
+
+@function var($variable) {
+    @return map-get($variables, $variable);
+}
+
+.uk-button-primary {
+    background-color: map-get($variables, --button-primary-background);//$button-primary-background;
+    color: var(--button-primary-color);//$button-primary-color;
+    @if(mixin-exists(hook-button-primary)) {@include hook-button-primary();}
+}
+
+.uk-button-primary:hover,
+.uk-button-primary:focus {
+    background-color: var(--button-primary-background);//$button-primary-background;
+    color: var(--button-primary-color);//$button-primary-color;
+    @if(mixin-exists(hook-button-primary-hover)) {@include hook-button-primary-hover();}
+}
+
+.uk-button-primary:active,
+.uk-button-primary.uk-active {
+    background-color: var(--button-primary-background);//$button-primary-background;
+    color: var(--button-primary-color);//$button-primary-color;
+    @if(mixin-exists(hook-button-primary-active)) {@include hook-button-primary-active();}
+}
+*/

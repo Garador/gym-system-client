@@ -1,0 +1,9 @@
+<div>
+  <app-navbar #mainNavBar></app-navbar>
+  <div uk-modal id="loadingModal" style="z-index:9000">
+    <div class="uk-modal-dialog uk-modal-body">
+      <div uk-spinner="ratio: 3"></div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

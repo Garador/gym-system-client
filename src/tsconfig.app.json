@@ -1,0 +1,26 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "module": "es6",
+    "baseUrl": "",
+    "types": [
+      "uikit"
+    ]
+    ,"paths": {
+      "typeorm": ["../../server/node_modules/typeorm/typeorm-model-shim.js"]      
+    }
+  },
+  "include": [
+    "../src/**/*",
+    "../../server/src/enums/**/*",
+    "../../server/src/interfaces/**/*",
+    "../../server/src/base/**/*",
+    "../../server/src/base/**/*",
+    "../../server/src/providers/SyntaxValidationProvider.ts"
+  ],
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts"
+  ]
+}

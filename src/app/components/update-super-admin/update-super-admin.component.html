@@ -1,0 +1,71 @@
+<div class="uk-container">
+    <form [formGroup]="_superAdminUpdateForm" (ngShow)="_superAdminUpdateForm" (onsubmit)="updateSuperadmin()">
+        <fieldset class="uk-fieldset">
+    
+            <div class="uk-margin">
+                <legend class="uk-legend">Nombre</legend>
+                <input class="uk-input" type="text"  
+                [ngClass]="
+                {'uk-form-danger':(
+                  !_superAdminUpdateForm.controls.firstname.pristine
+                  && !_superAdminUpdateForm.controls.firstname.valid
+                  )
+                }
+                "
+                formControlName="firstname">
+            </div>
+  
+            <div class="uk-margin">
+              <legend class="uk-legend">Apellido</legend>
+              <input class="uk-input" type="text"  
+              [ngClass]="
+              {'uk-form-danger':(
+                !_superAdminUpdateForm.controls.surname.pristine
+                && !_superAdminUpdateForm.controls.surname.valid
+                )
+              }
+              "
+              formControlName="surname">
+            </div>
+    
+            <div class="uk-margin">
+                <legend class="uk-legend">Nombre de Usuario</legend>
+                <input class="uk-input" type="text"  
+                [ngClass]="
+                {'uk-form-danger':(
+                  !_superAdminUpdateForm.controls.username.pristine
+                  && !_superAdminUpdateForm.controls.username.valid
+                  )
+                }
+                "
+                formControlName="username">
+            </div>
+    
+            <div class="uk-margin">
+                <legend class="uk-legend">Contraseña</legend>
+                <input class="uk-input" type="password"  
+                [ngClass]="
+                {'uk-form-danger':(
+                  !_superAdminUpdateForm.controls.password.pristine
+                  && !_superAdminUpdateForm.controls.password.valid
+                  )
+                }"
+                formControlName="password">
+            </div>
+    
+            <div class="uk-margin uk-grid">
+              <!--
+                <button class="uk-button uk-button-primary" (click)="logIn()" 
+                [disabled]="!_superAdminUpdateForm.valid"
+                >Entrar</button>
+              -->
+              <div class="uk-width-1-2">
+                <button class="uk-button uk-button-primary"  type="button" (click)="updateSuperadmin()">Actualizar</button>
+              </div>
+              <div class="uk-width-1-2">
+                <button class="uk-button uk-button-primary"  type="button" (click)="cancel()">Cerrar</button>
+              </div>
+            </div>
+        </fieldset>
+    </form>
+  </div>

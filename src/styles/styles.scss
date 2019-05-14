@@ -1,0 +1,92 @@
+#loadingModal {
+    z-index: 99999;
+    .uk-modal-dialog{
+        background: transparent;
+        text-align: center;
+
+        .uk-spinner {
+            color: white;
+        }
+    }
+}
+.record_action {
+    margin-left: .5vw;
+    margin-right: .5vw;
+    cursor: pointer;
+}
+
+.past_due_date{
+    color:red;
+    font-weight:bold;
+}
+
+.good_due_date{
+    color:lightgreen;
+    font-weight:bold;
+}
+
+.update-admin-actions {
+  .grid {
+    margin-left: 0px;
+  }
+}
+
+.document_content_input {
+  text-align: center;
+}
+
+body {
+	overflow: hidden !important;
+}
+html {
+	overflow-y: auto !important;
+}
+
+.search_bar_a {
+    margin-top: 1em !important;
+}
+.min-height-50 { 
+    min-height: 50vh;
+}
+/*
+$global-margin: 20px !default;
+$accordion-item-margin-top: $global-margin !default;
+$global-medium-font-size: 1.25rem !default;
+$accordion-title-font-size: $global-medium-font-size !default;
+$accordion-title-line-height: 1.4 !default;
+$global-emphasis-color: #333 !default;
+$accordion-title-color: $global-emphasis-color !default;
+$global-color: #666 !default;
+$accordion-title-hover-color: $global-color !default;
+$accordion-content-margin-top: $global-margin !default;
+$global-inverse-color: #fff !default;
+$inverse-global-emphasis-color: $global-inverse-color !default;
+$inverse-accordion-title-color: $inverse-global-emphasis-color !default;
+$inverse-global-color: rgba($global-inverse-color, 0.7) !default;
+$inverse-accordion-title-hover-color: $inverse-global-color !default;
+$global-gutter: 30px !default;
+$align-margin-horizontal: $global-gutter !default;
+$align-margin-vertical: $global-gutter !default;
+$global-medium-gutter: 40px !default;
+$align-margin-horizontal-l: $global-medium-gutter !default;
+$alert-margin-vertical: $global-margin !default;
+$global-small-gutter: 15px !default;
+$alert-padding: $global-small-gutter !default;
+$alert-padding-right: $alert-padding + 14px !default;
+$global-muted-background: #f8f8f8 !default;
+$alert-background: $global-muted-background !default;
+$alert-color: $global-color !default;
+$alert-close-top: $alert-padding + 5px !default;
+$alert-close-right: $alert-padding !default;
+$global-primary-background: #1e87f0 !default;
+$alert-primary-background: lighten(mix(white, $global-primary-background, 40%), 20%) !default;
+$alert-primary-color: $global-primary-background !default;
+$global-success-background: #32d296 !default;
+$alert-success-background: lighten(mix(white, $global-success-background, 40%), 25%) !default;
+$alert-success-color: $global-success-background !default;
+$global-warning-background: #faa05a !default;
+$alert-warning-background: lighten(mix(white, $global-warning-background, 45%), 15%) !default;
+$alert-warning-color: $global-warning-background !default;
+$global-danger-background: #f0506e !default;
+$alert-danger-background: lighten(mix(white, $global-danger-background, 40%), 20%) !default;
+*/

@@ -1,0 +1,55 @@
+<button class="uk-modal-close-default" type="button" uk-close></button>
+<div class="uk-container">  
+  <h3>Detalles del Pago</h3>
+  <form class="uk-grid-small" uk-grid [formGroup]="_dataForm" *ngIf="_dataForm">
+    <div class="uk-width-1-2@s">
+      <legend>Cédula</legend>
+      <input class="uk-input" type="text" 
+      formControlName="document_content">
+    </div>
+    <div class="uk-width-1-2@s">
+      <legend>Nombre</legend>
+      <input class="uk-input" type="text" 
+      
+      formControlName="firstName">
+    </div>
+    <hr class="uk-width-1-1@s uk-divider-icon">
+    <div class="uk-width-1-2@s">
+      <legend>Cantidad</legend>
+      <input class="uk-input" type="number"  [ngClass]="
+          {'uk-form-danger':(
+            _actualUser &&
+            !_dataForm.controls.ammount.valid
+            )
+          }
+          "        
+        [value]="_dataForm.controls.ammount.value | customCurrency:_dataForm.controls.ammount:2"
+        formControlName="ammount">
+    </div>
+    <div class="uk-width-1-2@s">
+      <legend>Fecha de corte</legend>
+      <input class="uk-input" type="text"
+      id="createPaymentCutDateInput"
+      [value]="_dataForm.controls.cut_date.value | jqueryDatePickerPipe:'createPaymentCutDateInput':_dataForm.controls.cut_date"
+      [ngClass]="
+          {'uk-form-danger':(
+            _actualUser &&
+            !_dataForm.controls.cut_date.valid
+            )
+          }
+          "
+        formControlName="cut_date">
+    </div>
+    <div class="uk-width-1-1@s">
+      <legend>Notas</legend>
+      <textarea rows='4' class="uk-textarea" type="text" [ngClass]="
+          {'uk-form-danger':(
+            _actualUser &&
+            !_dataForm.controls.notes.valid
+            )
+          }
+          "
+        formControlName="notes"></textarea>
+    </div>
+  </form>
+</div>

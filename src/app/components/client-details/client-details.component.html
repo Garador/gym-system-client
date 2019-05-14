@@ -1,0 +1,105 @@
+<button class="uk-modal-close-default" type="button" uk-close></button>
+<div class="uk-container">
+    <form class="uk-grid-small" uk-grid [formGroup]="_clientDetailsForm" (ngShow)="_clientDetailsForm">
+      <div class="uk-width-1-1">
+        <legend>Cédula</legend>
+        <input class="uk-input document_content_input" type="text" [ngClass]="
+                  {'uk-form-danger':(
+                    !_clientDetailsForm.controls.document_content.pristine &&
+                    !_clientDetailsForm.controls.document_content.valid
+                    )
+                  }
+                  "
+          formControlName="document_content">
+      </div>
+      <div class="uk-width-1-2@s">
+        <legend>Nombre</legend>
+        <input class="uk-input" type="text" [ngClass]="
+              {'uk-form-danger':(
+                !_clientDetailsForm.controls.firstname.pristine &&
+                !_clientDetailsForm.controls.firstname.valid
+                )
+              }
+              "
+          formControlName="firstname">
+      </div>
+      <div class="uk-width-1-2@s">
+        <legend>Apellido</legend>
+        <input class="uk-input" type="text"  [ngClass]="
+            {'uk-form-danger':(
+              !_clientDetailsForm.controls.surname.pristine &&
+              !_clientDetailsForm.controls.surname.valid
+              )
+            }
+            "
+          formControlName="surname">
+      </div>
+      <div class="uk-width-1-1@s">
+        <legend>Dirección</legend>
+        <textarea rows='4' class="uk-textarea" type="text"  [ngClass]="
+            {'uk-form-danger':(
+              !_clientDetailsForm.controls.address.pristine &&
+              !_clientDetailsForm.controls.address.valid
+              )
+            }
+            "
+          formControlName="address"></textarea>
+      </div>
+      <div class="uk-width-1-2@s">
+        <legend>Teléfono</legend>
+        <input class="uk-input" type="phone"  [ngClass]="
+            {'uk-form-danger':(
+              !_clientDetailsForm.controls.phone.pristine &&
+              !_clientDetailsForm.controls.phone.valid
+              )
+            }
+            "
+          formControlName="phone">
+      </div>
+      <div class="uk-width-1-2@s">
+        <legend>Monto por Mes</legend>
+        <input class="uk-input" type="number"  [ngClass]="
+            {'uk-form-danger':(
+              !_clientDetailsForm.controls.month_ammount.pristine &&
+              !_clientDetailsForm.controls.month_ammount.valid
+              )
+            }
+            "
+          formControlName="month_ammount">
+      </div>
+      <div class="uk-width-1-2@s">
+        <legend>Fecha de Inscripción</legend>
+        <input class="uk-input" type="text" 
+        id="clientDetailsComponentInscriptionDateInput"
+        [value]="_clientDetailsForm.controls.inscription_date.value | jqueryDatePickerPipe:'clientDetailsComponentInscriptionDateInput':_clientDetailsForm.controls.inscription_date"
+        [ngClass]="
+            {'uk-form-danger':(
+              !_clientDetailsForm.controls.inscription_date.pristine &&
+              !_clientDetailsForm.controls.inscription_date.valid
+              )
+            }
+            "
+          formControlName="inscription_date">
+      </div>
+      <div class="uk-width-1-2@s">
+        <legend>Fecha de Corte</legend>
+        <input class="uk-input" type="text"
+        id="clientDetailsComponentCutDateInput"
+        [value]="_clientDetailsForm.controls.cut_date.value | jqueryDatePickerPipe:'clientDetailsComponentCutDateInput':_clientDetailsForm.controls.cut_date"
+        [ngClass]="
+            {'uk-form-danger':(
+              !_clientDetailsForm.controls.cut_date.pristine &&
+              !_clientDetailsForm.controls.cut_date.valid
+              )
+            }
+            "
+          formControlName="cut_date">
+      </div>
+    </form>
+    <div class="uk-grid">
+      <div class="uk-width-1-2">
+        <button class="uk-button uk-button-secondary" (click)="cancel()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  
